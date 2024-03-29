@@ -93,3 +93,33 @@ html, body {
     line-height: 1em;
     max-height: 1px;
 }
+
+.Rotate {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    height: max-content;
+    border: 3px solid transparent;
+    padding-top: 22px;
+    padding-left: 5px;
+    border-image: linear-gradient(45deg,purple, #ff0000, purple, #0000ff) 1;
+    /* Adjust the angle and colors as needed */
+    border-image-slice: 1;
+    /* Ensure that the border is fully visible */
+    border-radius: 10px; /* Optional: Add border-radius for rounded corners */
+  }
+
+.me-design
+{
+    height: max-content;
+    border: 3px solid transparent;
+    border-image: linear-gradient(45deg,purple, #ff0000, purple, #0000ff) 1;
+}
+
+.centeritems
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

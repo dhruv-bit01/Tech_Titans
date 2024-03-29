@@ -1,34 +1,443 @@
 <!doctype html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <body>
-        <h1>Flask & Twilio Video Conference</h1>
-        <form>
-            <label for="username">Name: </label>
-            <input type="text" name=”username” id="username">
-            <button id="join_leave">Join call</button>
-            <button id="share_screen" disabled>Share screen</button>
-            <button id="toggle_chat" disabled>Toggle chat</button>
-        </form>
-        <p id="count">Disconnected.</p>
-        <div id="root">
-            <div id="container" class="container">
-                <div id="local" class="participant"><div></div><div class="label">Me</div></div>
-                <!-- more participants will be added dynamically here -->
-            </div>
-            <div id="chat">
-                <div id="chat-scroll">
-                    <div id="chat-content">
-                        <!-- chat content will be added dynamically here -->
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Medical</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico">
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gijgo.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animated-headline.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-all.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/slick.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <!--? Header Start -->
+    <div class="header-area navbarcol">
+        <div class="main-header header-sticky navbarcol">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-xl-2 col-lg-2 col-md-1">
+                        <div class="logo">
+                            <a href="/index"><img src="{{ url_for('static', filename='img/logo/SerenityLink.png') }}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10">
+                        <div class="menu-main d-flex align-items-center justify-content-end">
+                            <!-- Main-menu -->
+                            <div class="main-menu f-right d-none d-lg-block">
+                                <nav class="navbarcol">
+                                    <ul id="navigation"  style="background-color: #7549ef;">
+                                        
+                                        <li><a class="nav-link hoverlink" href="/">Home</a></li>
+                                        <li><a class="nav-link hoverlink" href="/about">About</a></li>
+                                        <li><a class="nav-link hoverlink" href="/blog">Blog</a></li>
+                                        
+                                        <li><a class="nav-link hoverlink" href="/records">Records</a></li>
+                                        <li><a class="nav-link hoverlink" href="/book">AI Appointments</a></li>
+                                        <li><a class="nav-link hoverlink" href="/manual">Manual Appointments</a></li>
+                                        <li><a class="nav-link hoverlink" href="/payments">Payments</a></li>
+                                        <li><a class="nav-link hoverlink" href="/room_chat">Chat</a></li>
+                                        <li><a class="nav-link hoverlink" href="/room_video">Video</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>   
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none navbarcol"></div>
                     </div>
                 </div>
-                <input id="chat-input" type="text">
             </div>
         </div>
-        <script src="https://media.twiliocdn.com/sdk/js/video/releases/2.3.0/twilio-video.min.js"></script>
-        <script src="https://media.twiliocdn.com/sdk/js/conversations/releases/1.0.0/twilio-conversations.min.js"></script>
-        <script src="{{ url_for('static', filename='app.js') }}"></script>
+    </div>
+    <!-- Header End -->
+</header>
+<main>
+    <!--? slider Area Start-->
+    <div class="slider-area position-relative navbarcol">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <!-- <div class="single-slider slider-height d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-9 col-md-8 col-sm-9">
+                            <div class="hero__caption">
+                                <span>Committed to achieve betterment for our patients lives</span>
+                                <h1 class="cd-headline letters scale">We care about your 
+                                    <strong class="cd-words-wrapper">
+                                        <b style="color: #7549ef;" class="is-visible">health</b>
+                                        <b style="color: #7549ef;">spirit</b>
+                                        <b style="color: #7549ef;">mind</b>
+                                    </strong>
+                                </h1>
+                                <p data-animation="fadeInLeft" data-delay="0.1s">For joining our community of healthcare professionals, we extend our heartfelt appreciation.Together, we can make a significant impact on patient care and well-being.</p>
+                                <a href="/" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s"> Doctor Logout <i class="ti-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div> -->
+            <!-- Single Slider -->
+            <div class="single-slider slider-height d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-9 col-md-8 col-sm-9">
+                            <div class="hero__caption">
+                                <span style="color: #7549ef;">Committed to achieve betterment for our patients lives</span>
+                                <h1 class="cd-headline letters scale">We care about your 
+                                    <strong class="cd-words-wrapper">
+                                        <b style="color: #7549ef;" class="is-visible">health</b>
+                                        <b style="color: #7549ef;">spirit</b>
+                                        <b style="color: #7549ef;">mind</b>
+                                    </strong>
+                                </h1>
+                                <p data-animation="fadeInLeft" data-delay="0.1s">For choosing to prioritize your mental health with us, we extend our sincere gratitude. Together, let's embark on this journey towards better well-being.</p>
+                                <a href="/" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s">Patient Logout<i class="ti-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+    <!--? About Start-->
+    <div class="about-area section-padding2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-10">
+                    <div class="about-caption mb-50">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle section-tittle2 mb-35">
+                            <span style="color: #7549ef;">About Our Company</span>
+                            <h2>Experience Healing: Step Into Our Haven: SerenityLink</h2>
+                        </div>
+                        <p>In a world where mental health support remains elusive, SerenityLink stands as a beacon of hope. We provide a safe, inclusive, and personalized platform for mental health care. With a dedicated team and tailored resources, we guide you towards better well-being. Join us as we redefine mental health support, one compassionate connection at a time. Welcome to SerenityLink, where your mental health matters most.</p>
+                        <div class="about-btn1 mb-30">
+                            <a href="/contact" class="btn about-btn">Health Hub Locator<i class="ti-arrow-right"></i></a>
+                        </div>
+                        <div class="about-btn1 mb-30">
+                            <a href="/book" class="btn about-btn2">Appointment <i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <!-- about-img -->
+                    <div class="about-img ">
+                        <div class="about-font-img d-none d-lg-block">
+                            <img src="{{ url_for('static', filename='img/gallery/about2.png') }}" alt="">
+                        </div>
+                        <div class="about-back-img ">
+                            <img src="{{ url_for('static', filename='img/gallery/about1.png') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About  End-->
+    <!--? department_area_start  -->
+
+    <!-- depertment area end  -->
+     <!--? Gallery Area Start -->
+     <div class="gallery-area section-padding30">
+        <div class="container">
+            <!-- Section Tittle -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-tittle text-center mb-100">
+                        <span style="color: #7549ef;">Our Gallery</span>
+                        <h2>Our Medical Camp</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Left -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img big-img" style="background-image: url(static/img/gallery/gallery1.png);"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url(static/img/gallery/gallery2.png);"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url(static/img/gallery/gallery3.png);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url(static/img/gallery/gallery4.png);"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url(static/img/gallery/gallery5.png);"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img big-img" style="background-image: url(static/img/gallery/gallery6.png);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Gallery Area End -->
+    <!--? All startups Start -->
+    <div class="all-starups-area testimonial-area fix">
+        <!-- left Contents -->
+        <div class="starups">
+            <!--? Testimonial Start -->
+            <div class="h1-testimonial-active">
+                <!-- Single Testimonial -->
+                <div class="single-testimonial text-center">
+                    <!-- Testimonial Content -->
+                    <div class="testimonial-caption ">
+                        <div class="testimonial-top-cap">
+                            <img src="{{ url_for('static', filename='img/gallery/testimonial.png') }}" alt="">
+                            <p>“I am at an age where I just want to be fit and healthy our bodies are our responsibility! So start caring for your body and it will care for you. Eat clean it will care for yout hard.”</p>
+                        </div>
+                        <!-- founder -->
+                        <div class="testimonial-founder d-flex align-items-center justify-content-center">
+                            <div class="founder-img">
+                                <img src="{{ url_for('static', filename='img/gallery/Homepage_testi.png') }}" alt="">
+                            </div>
+                            <div class="founder-text">
+                                <span>Margaret Lawson</span>
+                                <p>Chif Photographer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial End -->
+        </div>
+        <!--Right Contents  -->
+        <div class="starups-img"></div>
+    </div>
+    <!--All startups End -->
+     <!--? Team Start -->
+     <div class="team-area section-padding30">
+        <div class="container">
+            <!-- Section Tittle -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-tittle text-center mb-100">
+                        <span style="color: #7549ef;">Our Doctors</span>
+                        <h2>Our Specialist</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- single Tem -->
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                    <div class="single-team mb-30">
+                        <div class="team-img">
+                            <img src="{{ url_for('static', filename='img/gallery/team2.png') }}" alt="">
+                        </div>
+                        <div class="team-caption purpleimp">
+                            <h3><a href="#">Alvin Maxwell</a></h3>
+                            <span>Creative UI Designer</span>
+                            <!-- Team social -->
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                    <div class="single-team mb-30">
+                        <div class="team-img">
+                            <img src="{{ url_for('static', filename='img/gallery/team3.png') }}" alt="">
+                        </div>
+                        <div class="team-caption purpleimp">
+                            <h3><a href="#">Maria Smith</a></h3>
+                            <span>Agency Manager</span>
+                            <!-- Team social -->
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                    <div class="single-team mb-30">
+                        <div class="team-img">
+                            <img src="{{ url_for('static', filename='img/gallery/team1.png') }}" alt="">
+                        </div>
+                        <div class="team-caption purpleimp">
+                            <h3><a href="#">Angela Doe</a></h3>
+                            <span>Designer</span>
+                            <!-- Team social -->
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+     <!--? Contact form Start -->
+
+    <!-- Contact form End -->
+    <!--? gallery Products Start -->
+    <div class="gallery-area fix">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters">
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="gallery-box">
+                        <div class="single-gallery">
+                            <div class="gallery-img " style="background-image: url(static/img/gallery/gallery1.png);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="gallery-box">
+                        <div class="single-gallery">
+                            <div class="gallery-img " style="background-image: url(static/img/gallery/gallery2.png);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="gallery-box">
+                        <div class="single-gallery">
+                            <div class="gallery-img " style="background-image: url(static/img/gallery/gallery3.png);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="gallery-box">
+                        <div class="single-gallery">
+                            <div class="gallery-img " style="background-image: url(static/img/gallery/gallery4.png);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="gallery-box">
+                        <div class="single-gallery">
+                             <div class="gallery-img " style="background-image: url(static/img/gallery/gallery5.png);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="gallery-box">
+                        <div class="single-gallery">
+                            <div class="gallery-img " style="background-image: url(static/img/gallery/gallery6.png);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- gallery Products End -->
+
+    </main>
+
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    <!-- JS here -->
+
+    <script src="./static/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./static/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./static/js/popper.min.js"></script>
+    <script src="./static/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./static/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./static/js/owl.carousel.min.js"></script>
+    <script src="./static/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./static/js/wow.min.js"></script>
+    <script src="./static/js/animated.headline.js"></script>
+    <script src="./static/js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="./static/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="./static/js/jquery.nice-select.min.js"></script>
+    <script src="./static/js/jquery.sticky.js"></script>
+    
+    <!-- counter , waypoint -->
+    <script src="./static/js/jquery.counterup.min.js"></script>
+    <script src="./static/js/waypoints.min.js"></script>
+    <script src="./static/js/jquery.countdown.min.js"></script>
+    <!-- contact js -->
+    <script src="./static/js/contact.js"></script>
+    <script src="./static/js/jquery.form.js"></script>
+    <script src="./static/js/jquery.validate.min.js"></script>
+    <script src="./static/js/mail-script.js"></script>
+    <script src="./static/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./static/js/plugins.js"></script>
+    <script src="./static/js/main.js"></script>
+    
     </body>
+
+    <style>
+        .navbarcol
+        {
+            background-color: #7346efbb;
+        }
+        /* .hoverlink
+        {
+            color :black;
+        } */
+        .hoverlink:hover
+        {
+            color: yellow !important;
+        }
+        .purpleimp:hover
+        {
+            background-color: #7549ef!important;
+        }
+    </style>
 </html>
+

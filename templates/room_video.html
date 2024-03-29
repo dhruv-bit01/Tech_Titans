@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style_video.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Custom purple color */
+        .navbar-purple {
+            background-color: #9841fb; /* Purple */
+        }
+
+        /* Customize navbar links color */
+        .navbar-purple .navbar-nav .nav-link {
+            color: #ffffff; /* White */
+        }
+
+        /* Customize navbar brand color */
+        .navbar-purple .navbar-brand {
+            color: #ffffff; /* White */
+        }
+
+        /* Beautify and style buttons */
+        button {
+            background-color: #9841fb; /* Purple */
+            color: #ffffff; /* White */
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button:hover {
+            background-color: #7a2db5; /* Darker purple on hover */
+        }
+
+        /* Adjust margin for form elements */
+        form {
+            margin-bottom: 20px;
+        }
+        body
+        {
+            background-color: #FEEAFC;
+        }
+        .smol
+        {
+            display block;
+            margin-left : auto;
+            margin-right : auto;
+            width: 200px;
+            heigth: 140px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-purple">
+    <div class="container">
+        <a class="navbar-brand" href="/home">Home</a>
+    </div>
+</nav>
+
+<!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<h1 align="center">Nexus Health Pro</h1>
+<div class = "Rotate">
+    <form>
+        <label for="username">Name:</label>
+        <input type="text" name="username" id="username">
+        <button id="join_leave">Join call</button>
+        <button id="share_screen" disabled>Share screen</button>
+        <button id="toggle_chat" disabled>Toggle chat</button>
+    </form>
+</div>
+<p id="count">Disconnected.</p>
+<div id="root">
+    <div id="container" class="container centeritems" >
+        <div id="local" class="participant">
+            <div></div>
+            <div class="label me-design smol">Me</div>
+        </div>
+        <!-- more participants will be added dynamically here -->
+    </div>
+    <div id="chat" >
+        <div id="chat-scroll">
+            <div id="chat-content">
+                <!-- chat content will be added dynamically here -->
+            </div>
+        </div>
+        <input id="chat-input" type="text">
+    </div>
+</div>
+<script src="https://media.twiliocdn.com/sdk/js/video/releases/2.3.0/twilio-video.min.js"></script>
+<script src="https://media.twiliocdn.com/sdk/js/conversations/releases/1.0.0/twilio-conversations.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

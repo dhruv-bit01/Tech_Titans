@@ -1,0 +1,17 @@
+certifi
+chardet
+click
+Flask
+idna
+itsdangerous
+Jinja2
+MarkupSafe
+PyJWT
+pyngrok
+python-dotenv
+pytz
+requests
+six
+twilio
+urllib3
+Werkzeug

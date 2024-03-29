@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="description" content="Mobile Application HTML5 Template">
+
+  <meta name="copyright" content="MACode ID, https://www.macodeid.com/">
+  <title>Nexus Health</title>
+
+  <link rel="shortcut icon" href="../static/img/AI.jpg" type="image/x-icon">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/maicons.css') }}">
+
+  <link rel="stylesheet" href="../static/vendor/animate/animate.css">
+
+  <link rel="stylesheet" href="../static/vendor/owl-carousel/css/owl.carousel.min.css">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+
+  <link rel="stylesheet" href="../static/css/mobster.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-floating">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <!-- <img src="{{ url_for('static', filename='favicon-light.png') }}" alt="" width="40"> -->
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav ml-auto mt-3 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Health Hub Locator</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/records">Records</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/book">AI Appointments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manual">Manual Appointments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/payments">Payments</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="bg-light">
+
+  <div class="page-hero-section bg-image hero-mini" style="background-image: url(../static/img/hero_mini.svg);">
+    <div class="hero-caption">
+      <div class="container fg-white h-100">
+        <div class="row justify-content-center align-items-center text-center h-100">
+          <div class="col-lg-6">
+            <h3 class="mb-4 fw-medium">Health Hub Finder</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-7 my-3 wow fadeInUp text-center">
+        <div class="card-page">
+          <button id="show_map" class="btn btn-primary btn-block">Locate</button>
+          <div id="mapContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+      </div>
+    </div>
+  </div>
+
+</div> <!-- .bg-light -->
+
+
+
+<script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/owl-carousel/js/owl.carousel.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/wow/wow.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mobster.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/google-maps.js') }}"></script>
+
+<script>
+  document.getElementById('show_map').addEventListener('click', function() {
+      // Get user's location
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+
+              // Log or use the obtained latitude and longitude
+              console.log("Latitude:", latitude);
+              console.log("Longitude:", longitude);
+
+              // When the button is clicked, send a request to your Flask server
+              fetch('{{ url_for("generate_map") }}', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ latitude, longitude }),
+              })
+              .then(response => response.json())
+              .then(data => {
+                  // Assuming the data contains the filename of the generated map
+                  if (data.filename) {
+                      // Create an iframe
+                      const iframe = document.createElement('iframe');
+
+                      // Set iframe attributes
+                      iframe.setAttribute('src', data.filename);
+                      iframe.setAttribute('width', '100%');
+                      iframe.setAttribute('height', '500px');
+
+                      // Append the iframe to the mapContainer
+                      const mapContainer = document.getElementById('mapContainer');
+                      mapContainer.innerHTML = ''; // Clear previous content
+                      mapContainer.appendChild(iframe);
+                  } else {
+                      console.error('Error: Unable to get the map filename.');
+                  }
+              })
+              .catch(error => console.error('Error:', error));
+          }, function(error) {
+              // Error callback for geolocation
+              console.error('Error getting location:', error.message);
+          });
+      } else {
+          console.error('Geolocation is not supported by this browser.');
+      }
+  });
+</script>
+
+</body>
+</html>
